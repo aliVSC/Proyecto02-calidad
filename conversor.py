@@ -31,9 +31,13 @@ def actualizar_tasas(ruta):
         tasas = json.load(archivo)
         for moneda in tasas["USD"]:
             tasas["USD"][moneda] *= 0.98 + (0.04 * random.random())
+            #redodnear cada tasa a 2 decimales
+            tasas["USD"][moneda] = round(tasas["USD"][moneda], 2)
+        #registro defecha y hora de actualizacion
         tasas["actualizacion"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         archivo.seek(0)
         json.dump(tasas, archivo, indent=2)
+        archivo.truncate()
 
 
 # Ejemplo de uso
